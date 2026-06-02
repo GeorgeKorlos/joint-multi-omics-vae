@@ -1,0 +1,28 @@
+project:
+  name: p2-multiomics-vae
+  kegg_release: "118.0"       # must match P5 — do not bump without flagging P5
+
+seed: 42
+
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+  data_embeddings: data/embeddings
+  logs: logs
+  reports: reports
+  raw_transcriptomics: data/raw/OmicsExpressionProteinCodingGenesTPMLogp1.csv
+  raw_metabolomics: data/raw/CCLE_metabolomics_20190502.csv
+
+data:
+  n_paired: null        # filled Day 5
+  n_genes: null         # filled Day 5
+  n_metabolites: null   # filled Day 5 (expect ~225)
+
+split:
+  train: 0.8
+  val: 0.1
+  test: 0.1
+
+embedding:
+  dim: 128
+  normalization: L2     # applied at export — output contract, do not change

@@ -1,0 +1,42 @@
+# Environment
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# Secrets
+.env
+
+# Data — tracked via PROVENANCE.md + SHA256
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/embeddings/*
+!data/embeddings/.gitkeep
+
+# Derived artifacts
+outputs/
+logs/*
+!logs/.gitkeep
+
+# Notebooks — exploration only
+notebooks/*.ipynb
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# HDF5
+*.hdf5
+*.h5
