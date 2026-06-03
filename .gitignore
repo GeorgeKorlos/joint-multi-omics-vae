@@ -28,7 +28,6 @@ logs/*
 !logs/.gitkeep
 
 # Notebooks — exploration only
-notebooks/*.ipynb
 .ipynb_checkpoints/
 
 # OS / editor
