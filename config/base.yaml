@@ -14,9 +14,9 @@ paths:
   raw_metabolomics: data/raw/CCLE_metabolomics_20190502.csv
 
 data:
-  n_paired: null        # filled Day 5
-  n_genes: null         # filled Day 5
-  n_metabolites: null   # filled Day 5 (expect ~225)
+  n_paired: 912    
+  n_genes: 19205         
+  n_metabolites: 225
 
 split:
   train: 0.8
