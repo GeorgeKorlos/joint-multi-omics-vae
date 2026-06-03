@@ -36,3 +36,20 @@ metabolite IDs = KEGG compound IDs + PubChem/ChEBI crossrefs.
 
 Held-out test set keeps reconstruction quality claims uncontaminated by the beta and
 architecture tuning done on validation. At N≈898 this is ~90 samples per split.
+
+## KEGG mapping scope note
+
+Manually inspected the first 20 metabolite column headers from
+CCLE_metabolomics_20190502.csv. Several entries are co-eluting compounds recorded
+under a single slash-separated name (DHAP/glyceraldehyde 3P, F1P/F6P/G1P/G6P,
+fumarate/maleate/alpha-ketoisovalerate) — these cannot be mapped to a single KEGG
+compound ID and will be dropped at the mapping step. One entry is a class-level name
+(hexoses HILIC neg), also unmappable. Remaining entries appear to be single named
+compounds with standard names and are expected to map. Estimated drop rate from
+inspection: ~15-20% of the 225 metabolites. Coverage risk: medium. This is a data
+limitation of targeted LC-MS, not a pipeline bug. Decision on mapping strategy
+deferred to week 3 preregistration.
+
+Gene column format in transcriptomics: SYMBOL (ENTREZ_ID) — e.g. TSPAN6 (7105).
+The mapping pipeline must strip the Entrez suffix before passing symbols to the
+UniProt ID mapping API.
