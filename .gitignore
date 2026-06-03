@@ -39,3 +39,5 @@ logs/*
 # HDF5
 *.hdf5
 *.h5
+
+# scratch
