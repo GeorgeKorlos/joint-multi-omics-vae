@@ -26,34 +26,34 @@ tooling, not pipeline.
 
 Pinned. Confirmed live as of 2026-06-02 via REST API. 
 
-## D007 · Output contract 
+## D006 · Output contract 
 
 128-dim · HDF5 float32 · L2-normalized per row · gene-level embeddings from decoder
 weights · protein IDs = canonical Swiss-Prot UniProt accessions (human only) ·
 metabolite IDs = KEGG compound IDs + PubChem/ChEBI crossrefs.
 
-## D008 · Split ratios 80/10/10
+## D007 · Split ratios 80/10/10
 
 Held-out test set keeps reconstruction quality claims uncontaminated by the beta and
 architecture tuning done on validation. At N≈898 this is ~90 samples per split.
 
-## D09 · Reconstruction loss = MSE 
+## D08 · Reconstruction loss = MSE 
 
 Both modalities are continuous after normalization. MSE is the correct likelihood
 for real-valued data. BCE assumes inputs in [0,1] and would misstate the noise model.
 
-## D010 · Per-feature z-score normalization 
+## D09 · Per-feature z-score normalization 
 
 Puts expression and metabolite scales on comparable footing so the higher-variance
 modality does not dominate the latent space. Applied per feature, not globally.
 
-## D011 · L2 normalization at export, not in training 
+## D010 · L2 normalization at export, not in training 
 
 Unit-sphere rows make cosine similarity well-defined for the post-hoc KEGG analysis.
 Applied at export so learned decoder weights are preserved intact.
 Already fixed by output contract (D007); this entry locks the implementation.
 
-## D012 · Asymmetric encoder
+## D011 · Asymmetric encoder
 
 Modalities differ in intrinsic dimensionality. Deeper encoder for transcriptomics,
 shallower for metabolomics. Exact layer counts wait on per-modality PCA in week 3.
