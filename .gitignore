@@ -41,3 +41,4 @@ logs/*
 *.h5
 
 # scratch
+scratch/
