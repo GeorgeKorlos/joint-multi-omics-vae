@@ -37,12 +37,34 @@ metabolite IDs = KEGG compound IDs + PubChem/ChEBI crossrefs.
 Held-out test set keeps reconstruction quality claims uncontaminated by the beta and
 architecture tuning done on validation. At N≈898 this is ~90 samples per split.
 
+## D09 · Reconstruction loss = MSE 
+
+Both modalities are continuous after normalization. MSE is the correct likelihood
+for real-valued data. BCE assumes inputs in [0,1] and would misstate the noise model.
+
+## D010 · Per-feature z-score normalization 
+
+Puts expression and metabolite scales on comparable footing so the higher-variance
+modality does not dominate the latent space. Applied per feature, not globally.
+
+## D011 · L2 normalization at export, not in training 
+
+Unit-sphere rows make cosine similarity well-defined for the post-hoc KEGG analysis.
+Applied at export so learned decoder weights are preserved intact.
+Already fixed by output contract (D007); this entry locks the implementation.
+
+## D012 · Asymmetric encoder
+
+Modalities differ in intrinsic dimensionality. Deeper encoder for transcriptomics,
+shallower for metabolomics. Exact layer counts wait on per-modality PCA in week 3.
+Do not lock numbers before measuring.
+
 ## KEGG mapping scope note
 
 Manually inspected the first 20 metabolite column headers from
 CCLE_metabolomics_20190502.csv. Several entries are co-eluting compounds recorded
 under a single slash-separated name (DHAP/glyceraldehyde 3P, F1P/F6P/G1P/G6P,
-fumarate/maleate/alpha-ketoisovalerate) — these cannot be mapped to a single KEGG
+fumarate/maleate/alpha-ketoisovalerate), these cannot be mapped to a single KEGG
 compound ID and will be dropped at the mapping step. One entry is a class-level name
 (hexoses HILIC neg), also unmappable. Remaining entries appear to be single named
 compounds with standard names and are expected to map. Estimated drop rate from
