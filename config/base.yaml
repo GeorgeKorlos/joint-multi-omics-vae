@@ -25,4 +25,8 @@ split:
 
 embedding:
   dim: 128
-  normalization: L2     # applied at export — output contract, do not change
+  normalization: L2    
+  
+qc:
+  outlier_sd: 3
+  min_paired: 850 # applied at export — output contract, do not change
