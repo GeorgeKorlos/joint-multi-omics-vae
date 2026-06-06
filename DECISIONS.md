@@ -35,7 +35,7 @@ metabolite IDs = KEGG compound IDs + PubChem/ChEBI crossrefs.
 ## D007 · Split ratios 80/10/10
 
 Held-out test set keeps reconstruction quality claims uncontaminated by the beta and
-architecture tuning done on validation. At N≈898 this is ~90 samples per split.
+architecture tuning done on validation. At N≈904 this is ~90 samples per split.
 
 ## D08 · Reconstruction loss = MSE 
 
@@ -51,7 +51,7 @@ modality does not dominate the latent space. Applied per feature, not globally.
 
 Unit-sphere rows make cosine similarity well-defined for the post-hoc KEGG analysis.
 Applied at export so learned decoder weights are preserved intact.
-Already fixed by output contract (D007); this entry locks the implementation.
+Already fixed by output contract (D006); this entry locks the implementation.
 
 ## D011 · Asymmetric encoder
 
@@ -75,3 +75,52 @@ deferred to week 3 preregistration.
 Gene column format in transcriptomics: SYMBOL (ENTREZ_ID) — e.g. TSPAN6 (7105).
 The mapping pipeline must strip the Entrez suffix before passing symbols to the
 UniProt ID mapping API.
+
+
+## D012 · Missing-value handling — no imputation
+
+No imputation, no missingness-based removal, either modality. Both frames contain
+zero NaNs (Day 1, full-frame isna().sum().sum()). Metabolomics pre-imputed claim
+(PROVENANCE) holds empirically. No missing-value step in 02_qc.py.
+
+## D013 · Detection filter — rejected
+
+Metabolomics source is floor-filled at ~2.976 (min non-zero value); value
+distribution is unimodal centered ~5.9 with no near-floor mass. Every metabolite is
+detected above floor in essentially every cell line, so a detection-rate filter
+removes nothing. Distinct from the ~46% KEGG compound-mapping loss, which is a
+mapping-axis loss applied downstream (week 3), not a detection-axis QC filter.
+
+## D014 · Zero-variance genes — no QC drop
+
+5 genes are constant across all 1684 lines. Not removed at QC. They sit at the
+bottom of the variance ranking and are removed by the week 4 top-5000 selection
+before per-feature z-scoring (D009), so the divide-by-zero risk is eliminated by
+construction rather than by a QC step.
+
+## D015 · Low-variance QC filter — rejected as redundant
+
+A low-variance cut would remove 5.1% / 9.5% / 12.1% of genes at var < 0.01 / 0.05 /
+0.10. Week 4 top-5000-by-variance selection removes ~74% of genes by the same
+criterion, strictly superseding any QC-stage low-var threshold. Metabolomics (225
+features, no zero-variance) retains all features for the join and embedding. No
+low-var filter in 02_qc.py.
+
+## D016 · Outlier policy — 3 SD, one-sided low, transcriptomics-driven
+
+Per-sample total-signal z-score, removed where z < -3. Computed on the paired set
+(912) post-join, not the full transcriptomics frame.
+- One-sided (low only): no biological basis for removing high-total samples; none
+  exist (max < mean + 3 SD). Left-skewed tx distribution inflates SD, making the
+  cut conservative.
+- Transcriptomics-only: metabolomics per-sample totals have CV < 1% (SD 7.4 / mean
+  1322); a 3 SD cut there flags tight-Gaussian tails, not quality failures. The 9
+  metabolomics flags are recorded but not acted on.
+- Disjoint sets: tx and meta outliers share zero IDs (overlap ∅) — meta flags are
+  independent noise, not corroboration.
+- Result: 8 samples removed. N: 912 → 904 (≥ 850 floor, passes).
+- Removed DepMap IDs: ACH-000544, ACH-000732, ACH-000002, ACH-000979, ACH-000646,
+  ACH-000415, ACH-000771, ACH-000794.
+- These eight IDs are the expected 02_qc.py output. The script computes the cut on
+  the paired 912; if it produces a different set, the script is wrong (likely
+  computed on the full 1684 frame), not this decision.

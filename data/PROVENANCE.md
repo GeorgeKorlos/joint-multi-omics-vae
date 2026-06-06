@@ -21,7 +21,7 @@
 * **Citation**: Li et al. The landscape of cancer cell line metabolism.
   Nature Medicine 25, 850–860 (2019).
 * **SHA256**: 7c1d24aa575f4c58a29019026b5df8e6d1142a56925aba32ff3f1d1d5a7fd0ac
-* **Shape**: 928 × 226 (225 metabolites + CCLE_ID column)
+* **Shape**: 928 × 227 
 * **Notes**: Pre-imputed at source (no NaNs expected). Values are log-transformed.
   Column headers are metabolite names — name → KEGG compound ID translation required
   at the mapping step. CCLE_ID column dropped at preprocessing.
