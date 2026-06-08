@@ -32,3 +32,20 @@
 * **Join type**: inner
 * **Paired N**: 912
 * **Status**: PASS (above 850 floor)
+
+## KEGG Module Database
+* **Release**: kegg             Release 118.0+/06-08, Jun 26
+* **Fetch date**: 2026-06-08
+* **Source**: https://rest.kegg.jp
+* **Endpoints**: /link/hsa/module, /link/compound/module, /list/module, /link/hsa/hsa00010, /link/compound/map00010, /link/hsa/hsa00020, /link/compound/map00020, /link/hsa/hsa00260, /link/compound/map00260, /link/hsa/hsa00670, /link/compound/map00670
+* **link_compound_map00010.tsv**: adb555da7ad112350865cf87fc989b1aafbdd0346f06a2aa7ad7cceb52851950
+* **link_compound_map00020.tsv**: 255b5673d9328739afd449d746c1b930e61fcc4e21ea12f4d31b00b1b18ed93f
+* **link_compound_map00260.tsv**: b2bdbf1afd971c5167f479cd8f4a40c0d7a59c94b7c4f7db7bae46dacbdc6a8f
+* **link_compound_map00670.tsv**: 5c9374a84fd1e6dd83bf9142a151bcb00b1442514b2c29c0010c5b088df5436a
+* **link_compound_module.tsv**: 74eb99eb951b89b8653c6cc16fa7609f1e329d0ad600d93e403ba2039e8675a3
+* **link_hsa_hsa00010.tsv**: c5df3de5037a72fa201fe8aa3afcb1b820dbc54f0e92824f39a20ca1f7a67bd1
+* **link_hsa_hsa00020.tsv**: 595acabe7f2fab1a86ced813e2987ad0fea4fea90e899d4e10d776269a101edb
+* **link_hsa_hsa00260.tsv**: e96bcfb877b0ff6920f8331fb090580a24aa930b04a1c183403d728c60cc5ac4
+* **link_hsa_hsa00670.tsv**: f93eeac12ebf62494b0ce88bb20ce9b37ee4e194d8e812fcf06beb276d414b67
+* **link_hsa_module.tsv**: a926e06d52b39698869ef0532709c28e4848d383074f1852ede6b106ab40d8c5
+* **list_module.tsv**: 61e96a77d64f6fa77d120e30ee7f0d633f523f100b8c81a041bda0ff6f6462d9
