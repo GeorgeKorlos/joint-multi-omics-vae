@@ -1,0 +1,226 @@
+metabolite_name,kegg_compound_id,mapping_note
+C14:0 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:1 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:0 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:2 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:1 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:0 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C20:4 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C20:3 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C22:6 LPC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:0 LPE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:1 LPE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:0 LPE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C20:4 LPE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C22:6 LPE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C32:2 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C32:1 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C32:0 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C34:4 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C34:3 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C34:2 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C34:1 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:4 PC-A,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:4 PC-B,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:3 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:2 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:1 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C38:6 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C38:5 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C38:4 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C38:2 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C40:6 PC,,lipid species class (carbon:double-bond); not a single KEGG compound
+C14:0 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:1 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:0 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:2 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:1 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:0 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C22:1 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C22:0 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C24:1 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C24:0 SM,,lipid species class (carbon:double-bond); not a single KEGG compound
+C34:2 DAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C34:1 DAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:2 DAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C36:1 DAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C14:0 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:1 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C16:0 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:3 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:2 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:1 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C18:0 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C20:5 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C20:4 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C20:3 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C22:6 CE,,lipid species class (carbon:double-bond); not a single KEGG compound
+C46:2 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C46:1 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C46:0 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C48:3 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C48:2 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C48:1 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C48:0 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C50:3 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C50:2 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C50:1 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C50:0 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C52:5 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C52:4 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C52:3 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C52:2 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C52:1 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:7 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:6 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:5 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:4 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:3 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:2 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C54:1 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:8 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:7 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:6 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:5 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:4 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:3 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C56:2 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C58:8 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C58:7 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+C58:6 TAG,,lipid species class (carbon:double-bond); not a single KEGG compound
+DHAP/glyceraldehyde 3P,,co-eluting mixture (unresolvable isomers)
+F1P/F6P/G1P/G6P,,co-eluting mixture (hexose phosphates)
+fumarate/maleate/alpha-ketoisovalerate,,co-eluting mixture (multiple metabolites)
+ribose-5-P/ribulose5-P,,co-eluting mixture (pentose phosphates)
+succinate/methylmalonate,,co-eluting mixture; succinate (TCA cycle member) lost to chromatographic overlap
+UDP-galactose/UDP-glucose,,co-eluting mixture (UDP sugars)
+glycodeoxycholate/glycochenodeoxycholate,,co-eluting mixture (bile acids)
+taurodeoxycholate/taurochenodeoxycholate,,co-eluting mixture (bile acids)
+3-methyladipate/pimelate,,co-eluting mixture (dicarboxylates)
+cis/trans-hydroxyproline,C01157,stereoisomers unresolved
+butyrylcarnitine/isobutyrylcarnitine,,co-eluting isomeric acylcarnitines
+valerylcarnitine/isovalerylcarnitine/2-methylbutyroylcarnitine,,co-eluting isomeric acylcarnitines
+hexoses (HILIC neg),,class-level metabolite (assay-defined hexose pool)
+hexoses (HILIC pos),,class-level metabolite (assay-defined hexose pool)
+2-aminoadipate,C00956,
+3-phosphoglycerate,C00197,
+alpha-glycerophosphate,C00093,sn-glycerol 3-phosphate
+4-pyridoxate,C00847,
+aconitate,C00417,cis-aconitate (TCA member)
+adenine,C00147,
+adipate,C06104,
+alpha-ketoglutarate,C00026,
+AMP,C00020,
+citrate,C00158,
+isocitrate,C00311,
+CMP,C00055,
+cystathionine,C02291,
+cytidine,C00475,
+dCMP,C00239,
+erythrose-4-phosphate,C00279,
+glucuronate,C00191,
+glutathione oxidized,C00127,GSSG
+glutathione reduced,C00051,GSH
+GMP,C00144,
+guanosine,C00387,
+hippurate,C01586,
+hypoxanthine,C00262,
+inosine,C00294,
+kynurenine,C00328,
+lactate,C00186,L-lactate
+lactose,C00243,
+malate,C00149,L-malate
+NAD,C00003,NAD+ (oxidized form)
+NADP,C00006,NADP+ (oxidized form)
+oxalate,C00209,
+pantothenate,C00864,
+PEP,C00074,phosphoenolpyruvate
+sorbitol,C00794,
+sucrose,C00089,
+thymine,C00178,
+UMP,C00105,
+uracil,C00106,
+urate,C00366,
+uridine,C00299,
+xanthine,C00385,
+taurocholate,C02679,
+phosphocreatine,C02305,
+6-phosphogluconate,C00345,
+alpha-hydroxybutyrate,C05984,
+2-hydroxyglutarate,C02630,
+inositol,C00137,myo-inositol
+malondialdehyde,C19440,
+glycine,C00037,
+alanine,C00041,
+serine,C00065,
+threonine,C00188,
+methionine,C00073,
+aspartate,C00049,
+glutamate,C00025,
+asparagine,C00152,
+glutamine,C00064,
+histidine,C00135,
+arginine,C00062,
+lysine,C00047,
+valine,C00183,
+leucine,C00123,
+isoleucine,C00407,
+phenylalanine,C00079,
+tyrosine,C00082,
+tryptophan,C00078,
+proline,C00148,
+ornithine,C00077,
+citrulline,C00327,
+taurine,C00245,
+5-HIAA,C05635,5-hydroxyindoleacetate
+serotonin,C00780,
+GABA,C00334,4-aminobutanoate
+acetylglycine,,no KEGG entry
+dimethylglycine,C01026,
+homocysteine,C00155,
+SDMA/ADMA,,co-eluting isomeric arginine derivatives
+NMMA,C03884,NG-monomethyl-L-arginine
+allantoin,C01551,
+anthranilic acid,C00108,
+kynurenic acid,C01717,
+5-adenosylhomocysteine,C00021,header '5-' = S-adenosyl-L-homocysteine
+carnosine,C00386,
+N-carbamoyl-beta-alanine,C02642,3-ureidopropionate
+thiamine,C00378,
+niacinamide,C00153,nicotinamide (KEGG name)
+betaine,C00719,
+choline,C00114,
+alpha-glycerophosphocholine,C00670,sn-glycero-3-phosphocholine
+acetylcholine,C01996,
+creatine,C00300,
+creatinine,C00791,
+thyroxine,C01829,L-thyroxine
+trimethylamine-N-oxide,C01104,
+adenosine,C00212,
+thymidine,C00214,
+xanthosine,C01762,
+2-deoxyadenosine,C00559,
+2-deoxycytidine,C00881,
+cAMP,C00575,
+cotinine,C05317,
+pipecolic acid,C00408,
+pyroglutamic acid,C01879,5-oxoproline
+1-methylnicotinamide,C02918,
+butyrobetaine,C01181,gamma-butyrobetaine
+putrescine,C00134,
+methionine sulfoxide,C02989,
+carnitine,C00318,L-carnitine
+acetylcarnitine,C02571,
+propionylcarnitine,C03017,
+malonylcarnitine,,no KEGG entry
+hexanoylcarnitine,,no KEGG entry
+heptanoylcarnitine,,no KEGG entry
+lauroylcarnitine,,no KEGG entry
+myristoylcarnitine,,no KEGG entry
+palmitoylcarnitine,C02990,
+stearoylcarnitine,,no KEGG entry
+oleylcarnitine,,no KEGG entry
+arachidonyl_carnitine,,no KEGG entry
+sarcosine,C00213,
+beta-alanine,C00099,
+anserine,C01262,
