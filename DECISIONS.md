@@ -37,12 +37,12 @@ metabolite IDs = KEGG compound IDs + PubChem/ChEBI crossrefs.
 Held-out test set keeps reconstruction quality claims uncontaminated by the beta and
 architecture tuning done on validation. At N≈904 this is ~90 samples per split.
 
-## D08 · Reconstruction loss = MSE 
+## D008 · Reconstruction loss = MSE 
 
 Both modalities are continuous after normalization. MSE is the correct likelihood
 for real-valued data. BCE assumes inputs in [0,1] and would misstate the noise model.
 
-## D09 · Per-feature z-score normalization 
+## D009 · Per-feature z-score normalization 
 
 Puts expression and metabolite scales on comparable footing so the higher-variance
 modality does not dominate the latent space. Applied per feature, not globally.
@@ -53,11 +53,27 @@ Unit-sphere rows make cosine similarity well-defined for the post-hoc KEGG analy
 Applied at export so learned decoder weights are preserved intact.
 Already fixed by output contract (D006); this entry locks the implementation.
 
-## D011 · Asymmetric encoder
+## D011 · Asymmetric encoder — locked
 
-Modalities differ in intrinsic dimensionality. Deeper encoder for transcriptomics,
-shallower for metabolomics. Exact layer counts wait on per-modality PCA in week 3.
-Do not lock numbers before measuring.
+Asymmetric per-modality encoder trunks: deep transcriptomics, shallow
+metabolomics. Trunk outputs concatenated → shared head → μ, logvar (128-dim each).
+
+Locked widths:
+- transcriptomics trunk: 5000 → 1024 → 256
+- metabolomics trunk: 225 → 128
+- concat (256 + 128 = 384) → shared head → μ, logvar
+
+Per-modality PCA on the full QC'd matrix (Day 3, 02_kegg_coverage.ipynb):
+transcriptomics needs 285 PCs to 80% variance / 490 to 90%; metabolomics needs
+44 / 80. Transcriptomics variance spreads across hundreds of components → more
+capacity to compress; metabolomics concentrates in ~50 → a deep stack would
+overfit 225 features on 904 samples. Hence deep tx, shallow mt.
+
+Caveat: PCA ran on all 19205 genes; the model sees top-5000 (week 4), so absolute
+PC counts are indicative, not model-input dimensionality. The relative tx≫mt gap
+(~6×) is the load-bearing finding and is robust to the gene subset — that is what
+justifies locking the asymmetry. PCA supports deep-vs-shallow; the exact widths
+are a modeling choice, not dictated by the numbers.
 
 ## KEGG mapping scope note
 
@@ -124,3 +140,28 @@ Per-sample total-signal z-score, removed where z < -3. Computed on the paired se
 - These eight IDs are the expected 02_qc.py output. The script computes the cut on
   the paired 912; if it produces a different set, the script is wrong (likely
   computed on the full 1684 frame), not this decision.
+
+## D017 · KEGG module member threshold — ≥3 headline, sweep 2/3/5
+
+≥3 members headline, sensitivity sweep at 2 / 3 / 5. Claim supported only if it
+holds across all three (preregistered, §3.5).
+
+Coverage at each threshold (Day 2, 02_kegg_coverage.ipynb), over 258 modules
+detected in data:
+
+| threshold | total | gene side | metabolite side |
+|-----------|-------|-----------|-----------------|
+| ≥2 | 195 | 129 | 97 |
+| ≥3 | 140 | 117 | 32 |
+| ≥5 | 101 | 84 | 7 |
+| ≥10 | 50 | 44 | 0 |
+
+≥3 is the floor where mean pairwise similarity is more than a single pairwise
+distance, and leaves a healthy count (140 total, 117 gene-side). ≥2 is thin (one
+pair); ≥10 leaves too few modules and zero metabolite-side. The 2/3/5 sweep shows
+the result is not a threshold artifact.
+
+Metabolite side collapses past ≥3 (32 → 7 → 0) — structural, only 71 compounds
+appear in any module. This is why the primary statistic is within-modality
+(prereg §3.1) and the both-modality pool is small. Counts are upper bounds here,
+re-fixed at week 10 on the embedded entity set; the sweep absorbs the shrinkage.
