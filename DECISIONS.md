@@ -114,6 +114,14 @@ bottom of the variance ranking and are removed by the week 4 top-5000 selection
 before per-feature z-scoring (D009), so the divide-by-zero risk is eliminated by
 construction rather than by a QC step.
 
+Update. The 5-gene count is measured on the full 1684-line transcriptomics frame. 
+Selection actually runs on the clean 904-line set, where 8 genes are zero-variance. 
+The difference is the dropped lines: 1684 → 912 at the metabolomics join → 904 after outlier removal (D016). 
+Removing lines can only flatten a gene, never un-flatten it, so the original 5 are a subset of these 8, 
+three more genes vary only across lines that were dropped, and read constant across the 904 that remain. 
+All 8 sit at the bottom of the variance ranking and are removed by the top-5000 cut by construction; 
+the divide-by-zero protection is unchanged.
+
 ## D015 · Low-variance QC filter — rejected as redundant
 
 A low-variance cut would remove 5.1% / 9.5% / 12.1% of genes at var < 0.01 / 0.05 /
