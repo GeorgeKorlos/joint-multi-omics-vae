@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from .io import read_omics_clean, OMICS_PATH
 
@@ -56,6 +57,27 @@ def select_top_genes(
     print(f"gene list -> {out_path}")
 
     return table["symbol"].tolist()
+
+
+class Standardizer:
+    def __init__(self) -> None:
+        self.mean_ = None
+        self.std_ = None
+
+    def fit(self, X):
+        X = np.asarray(X, dtype="float64")
+        self.mean_ = X.mean(axis=0)
+        self.std_ = X.std(axis=0)
+        self.std_ = np.where(self.std_ == 0, 1, self.std_)
+        return self
+
+    def transform(self, X):
+        if self.mean_ is None:
+            raise RuntimeError("transform before fit")
+        return (X - self.mean_) / self.std_
+
+    def fit_transform(self, X):
+        return self.fit(X).transform(X)
 
 
 if __name__ == "__main__":
