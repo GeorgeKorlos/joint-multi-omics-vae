@@ -75,6 +75,15 @@ PC counts are indicative, not model-input dimensionality. The relative tx≫mt g
 justifies locking the asymmetry. PCA supports deep-vs-shallow; the exact widths
 are a modeling choice, not dictated by the numbers.
 
+Confirmation (top-5000 subset). D011's PCA ran on all 19205 genes; the model sees the top-5000. 
+Re-running per-modality PCA on the 5000-gene subset: transcriptomics 197 PCs to 80% / 397 to 90%, 
+metabolomics unchanged at 44 / 80. The gap is 4.5× at 80% and 5.0× at 90%, down from ~6.5× / ~6.1× 
+on the full frame. The drop is expected: top-5000 removes low-variance genes that carried long-tail 
+dimensions, concentrating transcriptomics variance into fewer PCs while metabolomics is untouched. 
+The asymmetry holds in the direction that matters, transcriptomics remains several times 
+higher-dimensional, so the asymmetric encoder depth is unchanged. Only the headline multiple 
+shrinks from ~6× to ~4.5–5×.
+
 ## KEGG mapping scope note
 
 Manually inspected the first 20 metabolite column headers from
