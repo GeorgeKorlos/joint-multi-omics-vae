@@ -20,6 +20,7 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 !data/processed/selected_genes.csv
+!data/processed/split.json
 data/embeddings/*
 !data/embeddings/.gitkeep
 

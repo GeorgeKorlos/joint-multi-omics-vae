@@ -79,6 +79,19 @@ class Standardizer:
     def fit_transform(self, X):
         return self.fit(X).transform(X)
 
+    def save(self, path):
+        if self.mean_ is None or self.std_ is None:
+            raise RuntimeError("save before fit")
+        np.savez(path, mean=self.mean_, std=self.std_)
+
+    @classmethod
+    def load(cls, path):
+        d = np.load(path)
+        s = cls()
+        s.mean_ = d["mean"]
+        s.std_ = d["std"]
+        return s
+
 
 if __name__ == "__main__":
     select_top_genes()

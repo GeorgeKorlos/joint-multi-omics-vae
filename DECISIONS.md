@@ -182,3 +182,87 @@ Metabolite side collapses past ≥3 (32 → 7 → 0) — structural, only 71 com
 appear in any module. This is why the primary statistic is within-modality
 (prereg §3.1) and the both-modality pool is small. Counts are upper bounds here,
 re-fixed at week 10 on the embedded entity set; the sweep absorbs the shrinkage.
+
+## D018 · Top-5000 gene selection by variance
+
+Genes are ranked by variance across the 904 clean paired lines, and the top 5000
+are kept. Selection runs on the clean, un-z-scored values, it has to, because
+z-scoring (D009) sets every feature's variance to 1, which would destroy the
+ranking. Variance at the cut (rank 5000): 1.21716. 14205 genes are dropped.
+
+Deterministic: ties are broken by original column position, so the selected set
+is identical bit-for-bit across runs and machines. This supersedes the rejected
+low-variance QC filter (D015), top-5000 is a stricter variance cut, and removes
+the zero-variance genes (D014, 8 on the clean set) by construction, since they
+sit at the bottom of the ranking and never reach the top 5000.
+
+Entrez IDs are reattached to the selected symbols from the raw transcriptomics
+header, position-aligned to the clean columns (two asserts guard the alignment).
+The clean matrix carries bare symbols, but Week 8 (UniProt) and Week 10 (KEGG
+re-fix) both key on Entrez, so the selection persists symbol + entrez together.
+
+The selected list is written to `data/processed/selected_genes.csv`
+(rank, symbol, entrez, variance) and tracked in git. It is a provenance artifact:
+the gene embedding universe for P3 derives from it.
+
+## D019 · Train/val/test split — random, not stratified
+
+80/10/10 split on the 904 paired samples, seed 42 (the project-global seed),
+stored by DepMap ID in `data/processed/split.json`. Fold sizes: train 723,
+val 90, test 91 (test absorbs the rounding remainder so the three always sum to
+904). The split is deterministic — same seed gives the same partition bit-for-bit,
+and frozen: SHA256 `6d50beca9e8de6382d960548692ed4fc7de33a89364fca9d145821ec7faa409d`.
+That hash is the contract; if the split file ever changes, the hash won't match.
+
+The split is random, not stratified by cancer lineage. Reasoning:
+
+- The scientific result (KEGG module membership vs embedding similarity) is
+  computed from decoder weights — gene and metabolite embeddings, which do not
+  depend on which cell lines sit in which fold. The split only affects the
+  held-out reconstruction score used for β selection (Week 6), and at ~90 lines
+  per held-out fold a random draw is representative enough for that.
+- Lineage labels are not in the repo. `omics_clean.h5` carries DepMap IDs only,
+  so stratifying would require downloading and SHA256-pinning a new DepMap
+  metadata file and joining it by ID, a new tracked data dependency for a
+  benefit that does not touch the claim.
+- Simplest implementation that produces a valid artifact (project convention);
+  stratification here is complexity without a justification that survives scrutiny.
+
+## D020 · Per-feature standardizer, fit on train only
+
+Per-feature z-score (D009), implemented as a small `Standardizer` class rather
+than sklearn, so the saved object is two plain arrays (`mean`, `std`) in an
+`.npz`, with no library-version baggage to break on reload across the project's
+weeks.
+
+The fit happens on the 723 training rows only, then the stored train statistics
+are applied to val and test. Fitting on all 904 would leak val/test distribution
+into training and inflate the held-out reconstruction numbers that drive β
+selection. Confirmed empirically: after transform, train mean is ~0 (fit on
+those rows) while val (0.0347) and test (0.0247) are small but non-zero — proof
+the fit was train-only.
+
+One scaler over the concatenated `[tx | mt]` matrix (5225 features), not two
+per-modality scalers. Per-feature z-scoring is per-feature regardless of column
+grouping, so the two approaches give bit-for-bit identical results; one scaler
+is less to track. Constant features (std 0) are guarded: std is replaced with 1
+before dividing, so a constant column maps to all-zeros rather than NaN.
+
+Stored to `data/processed/scaler.npz`. The fit is sequenced strictly after the
+split (D019), train rows can't be identified until the split exists.
+
+## D021 · Modality boundary index (5000 | 225)
+
+The model input is the concatenated `[tx | mt]` vector: 5000 genes first, then
+225 metabolites, total 5225. The boundary index, 5000, marks where
+transcriptomics ends and metabolomics begins.
+
+Concatenation order (tx before mt) is fixed and load-bearing. The scaler's
+stored arrays, the column order of the model input, and the boundary index all
+assume it. Stored to `data/processed/boundary.json` as
+`{"boundary": 5000, "tx": 5000, "mt": 225}`.
+
+This is a forward contract: embedding extraction slices the decoder weight
+matrix at exactly this index to separate gene embeddings from metabolite
+embeddings. If the concat order or the selection count ever changes, this index
+and every downstream slice must change with it.
