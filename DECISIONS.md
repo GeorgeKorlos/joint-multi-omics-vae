@@ -266,3 +266,35 @@ This is a forward contract: embedding extraction slices the decoder weight
 matrix at exactly this index to separate gene embeddings from metabolite
 embeddings. If the concat order or the selection count ever changes, this index
 and every downstream slice must change with it.
+
+
+## D022 · Linear decoder — locked
+
+One linear map per modality, no hidden layers, no activation:
+- transcriptomics: z (128) → 5000 genes      W_trans shape [5000 × 128]
+- metabolomics:    z (128) → 225 metabolites  W_met   shape [225 × 128]
+
+Bias kept (nn.Linear default). The bias is a per-feature offset (each feature's
+mean reconstruction level); it is a separate vector from the weight matrix and is
+never touched at extraction, so it does not affect the embeddings.
+
+Reason: forced by the output contract (D006), not a modeling preference. The
+contract requires a 128-dim embedding per gene and per metabolite, pulled straight
+from decoder weights. A linear decoder gives exactly that: row i of W_trans IS
+gene i's 128-dim embedding — its weights connecting the shared latent to that gene's
+reconstruction. A multi-layer decoder cannot: the final layer of a 128→512→1024→5000
+decoder is [1024 × 5000], so per-gene vectors are 1024-dim, the wrong width, with no
+clean 128-dim object to extract. Extraction (.weight rows) only works if the
+decoder is linear.
+
+This is the LDVAE design (Svensson et al. 2020, linearly-decoded VAE). It also makes
+the post-hoc analysis well-posed: a gene's embedding is its loading on the shared
+latent, so cosine similarity between two genes is similarity of latent loading,
+exactly what the KEGG co-membership test asks. A nonlinear decoder would make the
+embedding a loading on some post-latent hidden layer, a murkier object.
+
+Trade-off: a linear decoder reconstructs less accurately than a nonlinear one. This
+is the correct trade, the project's purpose is interpretable, extractable embeddings for the
+post-hoc test, not maximal reconstruction. The nonlinear encoder (D011) keeps the
+model's expressive power on the input side; the linear decoder keeps the readout
+interpretable.
