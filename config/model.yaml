@@ -1,0 +1,13 @@
+model:
+  tx_dim: 5000
+  mt_dim: 225
+  latent_dim: 128
+
+  encoder:
+    tx_trunk_hidden: [1024, 256]   # 5000 -> 1024 -> 256
+    mt_trunk_hidden: [128]         # 225 -> 128
+    shared_hidden: 256             # concat(384) -> 256 -> mu/logvar
+
+  decoder:
+    type: linear                   
+    bias: true

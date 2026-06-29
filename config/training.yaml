@@ -1,0 +1,9 @@
+# baseline
+training:
+  beta: 1.0
+  lr: 0.001
+  epochs: 100
+  batch_size: 64
+  seed: 42
+  device: cpu          # set "cuda" if training on GPU
+  optimizer: adam
