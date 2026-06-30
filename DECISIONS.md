@@ -298,3 +298,34 @@ is the correct trade, the project's purpose is interpretable, extractable embedd
 post-hoc test, not maximal reconstruction. The nonlinear encoder (D011) keeps the
 model's expressive power on the input side; the linear decoder keeps the readout
 interpretable.
+
+## D023 · β=1 baseline result — reference point
+
+First trained run.  β=1, lr 1e-3,
+100 epochs, batch 64, seed 42, CPU. Decoder linear (D022), encoder per D011.
+
+Result — baseline is healthy, both checks pass:
+
+Posterior collapse: none. 128/128 latent dims active at KL threshold 0.01.
+  Per-dim KL (test, avg over 91 samples): min 0.0120, median 0.0681, max 1.7922.
+  Threshold note: 0.01 is justified post-measurement, the per-dim KL distribution
+  has no cluster of dead dims at ~0, so the active count is stable for any small
+  cutoff. The weakest dim (0.0120) sits just above the floor; the count is mildly
+  threshold-sensitive at the low end, but no dimension has collapsed.
+
+R² on held-out test (per modality, baseline = per-feature mean):
+  tx: +0.4350   mt: +0.5951
+  Both clear 0, the model reconstructs both modalities well above the mean baseline.
+  mt > tx as expected (225 coordinated features vs 5000 genes from a 128-dim latent).
+
+Training: val tracked train and descended throughout (val total 2.03 → 1.18, still
+slightly declining at epoch 99). Val sat below train — expected, train carries the
+reparameterization-noise penalty that eval (return mu) does not. Not overfitting;
+no dropout warranted.
+
+Interpretation: this is a result, not a tuning artifact. The latent is fully used and
+both modalities reconstruct. β=1 is a healthy starting point; Week 6 sweeps β to test
+the reconstruction-vs-KL trade and whether higher β sharpens the latent without
+inducing collapse.
+
+Cross-ref: D011 (encoder), D022 (decoder), losses.py, experiments/baseline_beta1.log.
