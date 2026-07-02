@@ -8,12 +8,19 @@ from src.model.vae import VAE
 from src.model.losses import vae_loss
 
 CONFIG_TRAINING_PATH = "config/training.yaml"
+CONFIG_MODEL_PATH = "config/model.yaml"
 
 
 def load_config(path=CONFIG_TRAINING_PATH):
     with open(path, "r") as f:
         cfg = yaml.safe_load(f)
     return cfg["training"]
+
+
+def load_model_config(path=CONFIG_MODEL_PATH):
+    with open(path, "r") as f:
+        cfg = yaml.safe_load(f)
+    return cfg["model"]
 
 
 def make_loader(arr, batch_size, shuffle, device):
@@ -65,26 +72,83 @@ def run_epoch(model, loader, tx_dim, beta, optimizer=None):
     return total_avg, tx_avg, mt_avg, kl_avg
 
 
-def main():
-    cfg = load_config()
-    torch.manual_seed(cfg["seed"])
-    np.random.seed(cfg["seed"])
-    device = cfg["device"]
+def train(beta, arch="asymmetric", seed=None):
+
+    cfg_training = load_config()
+    cfg_model = load_model_config()
+
+    enc = cfg_model["encoder"]
+    if seed is None:
+        seed = cfg_training["seed"]
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+
+    device = cfg_training["device"]
+
     tensors, boundary = build_tensors()
-    train_loader = make_loader(tensors["train"], cfg["batch_size"], True, device)
-    val_loader = make_loader(tensors["val"], cfg["batch_size"], False, device)
-    model = VAE(tx_dim=boundary, mt_dim=5225 - boundary, latent_dim=128).to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=cfg["lr"])
-    for epoch in range(cfg["epochs"]):
-        tr = run_epoch(model, train_loader, boundary, cfg["beta"], optimizer)
-        va = run_epoch(model, val_loader, boundary, cfg["beta"], optimizer=None)
+
+    train_loader = make_loader(
+        tensors["train"],
+        cfg_training["batch_size"],
+        True,
+        device,
+    )
+
+    val_loader = make_loader(
+        tensors["val"],
+        cfg_training["batch_size"],
+        False,
+        device,
+    )
+
+    model = VAE(
+        tx_dim=boundary,
+        mt_dim=5225 - boundary,
+        latent_dim=128,
+        arch=arch,
+        tx_hidden=enc["tx_trunk_hidden"][0],
+        mt_hidden=enc["mt_trunk_hidden"][0],
+    ).to(device)
+
+    optimizer = torch.optim.Adam(
+        model.parameters(),
+        lr=cfg_training["lr"],
+    )
+
+    history = []
+
+    for epoch in range(cfg_training["epochs"]):
+        tr = run_epoch(
+            model,
+            train_loader,
+            boundary,
+            beta,
+            optimizer,
+        )
+
+        va = run_epoch(
+            model,
+            val_loader,
+            boundary,
+            beta,
+            optimizer=None,
+        )
+        history.append(
+            {
+                "epoch": epoch,
+                "train": {"total": tr[0], "tx": tr[1], "mt": tr[2], "kl": tr[3]},
+                "val": {"total": va[0], "tx": va[1], "mt": va[2], "kl": va[3]},
+            }
+        )
+
         print(
             f"epoch {epoch:3d} | "
             f"train total {tr[0]:.4f} tx {tr[1]:.4f} mt {tr[2]:.4f} kl {tr[3]:.4f} | "
             f"val total {va[0]:.4f} tx {va[1]:.4f} mt {va[2]:.4f} kl {va[3]:.4f}"
         )
-    return model
+
+    return model, history
 
 
 if __name__ == "__main__":
-    main()
+    train(beta=1)
