@@ -4,9 +4,10 @@ model:
   latent_dim: 128
 
   encoder:
-    tx_trunk_hidden: [1024, 256]   # 5000 -> 1024 -> 256
+    arch: "shallow"
+    tx_trunk_hidden: [256]   # 5000 -> 1024 -> 256
     mt_trunk_hidden: [128]         # 225 -> 128
-    shared_hidden: 256             # concat(384) -> 256 -> mu/logvar
+              # concat(384) -> 256 -> mu/logvar
 
   decoder:
     type: linear                   

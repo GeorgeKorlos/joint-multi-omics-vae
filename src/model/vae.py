@@ -5,13 +5,15 @@ from src.model.decoder import LinearDecoder
 
 
 class VAE(nn.Module):
-    def __init__(self, tx_dim=5000, mt_dim=225, latent_dim=128, arch="asymmetric"):
+    def __init__(self, tx_dim, mt_dim, latent_dim, arch, tx_hidden, mt_hidden):
         super().__init__()
         self.tx_dim = tx_dim
         if arch == "asymmetric":
             self.encoder = Encoder(tx_dim, mt_dim, latent_dim)
         elif arch == "shallow":
-            self.encoder = ShallowEncoder(tx_dim, mt_dim, latent_dim)
+            self.encoder = ShallowEncoder(
+                tx_dim, mt_dim, latent_dim, tx_hidden, mt_hidden
+            )
         else:
             raise ValueError(f"unknown arch: {arch}")
         self.decoder = LinearDecoder(tx_dim, mt_dim, latent_dim)

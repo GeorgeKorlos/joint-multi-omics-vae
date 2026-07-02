@@ -34,19 +34,17 @@ class Encoder(nn.Module):
 
 
 class ShallowEncoder(nn.Module):
-
-    def __init__(self, tx_dim=5000, mt_dim=225, latent_dim=128):
+    def __init__(self, tx_dim, mt_dim, latent_dim, tx_hidden, mt_hidden):
         super().__init__()
         self.tx_trunk = nn.Sequential(
-            nn.Linear(tx_dim, 256), nn.LayerNorm(256), nn.GELU()
+            nn.Linear(tx_dim, tx_hidden), nn.LayerNorm(tx_hidden), nn.GELU()
         )
-
         self.mt_trunk = nn.Sequential(
-            nn.Linear(mt_dim, 128), nn.LayerNorm(128), nn.GELU()
+            nn.Linear(mt_dim, mt_hidden), nn.LayerNorm(mt_hidden), nn.GELU()
         )
-
-        self.mu = nn.Linear(384, latent_dim)
-        self.logvar = nn.Linear(384, latent_dim)
+        concat = tx_hidden + mt_hidden
+        self.mu = nn.Linear(concat, latent_dim)
+        self.logvar = nn.Linear(concat, latent_dim)
 
     def forward(self, x_tx, x_mt):
         h_t = self.tx_trunk(x_tx)
