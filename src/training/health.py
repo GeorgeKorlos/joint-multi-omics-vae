@@ -34,13 +34,13 @@ def r2_per_modality(x_tx, x_mt, recon_tx, recon_mt):
 
 
 def main():
-    from src.training.trainer import main as train_main, load_config
+    from src.training.trainer import train as train_main, load_config
     from src.data.pipeline import build_tensors
 
     cfg = load_config()
     device = cfg["device"]
 
-    model = train_main()
+    model, _ = train_main(beta=1)
     tensors, boundary = build_tensors()
 
     mu, logvar, x_tx, x_mt, rtx, rmt = collect_latents(
