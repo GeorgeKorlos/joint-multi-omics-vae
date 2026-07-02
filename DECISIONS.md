@@ -84,7 +84,7 @@ The asymmetry holds in the direction that matters, transcriptomics remains sever
 higher-dimensional, so the asymmetric encoder depth is unchanged. Only the headline multiple 
 shrinks from ~6× to ~4.5–5×.
 
-D011 · Encoder architecture — REVISED Week 6
+### REVISED 
 
 **Original decision:** asymmetric per-modality trunks — deep
 transcriptomics (5000→1024→256), shallow metabolomics (225→128), concat→shared
@@ -107,7 +107,7 @@ overlap; shallow's worst run (tx 0.4516) exceeds asymmetric's best (tx 0.4172);
 same on mt. Within-seed spread (~0.003) is ~10× smaller than the between-arch gap
 (~0.035), so the difference is architectural, not initialization noise.
 
-**Read:** the deep tx trunk overfits. 5000→1024→256 on 723 training rows has the
+**Read:** the deep tx trunk overfits. 5000→1024→256 on 723 training rows (of 904 paired) has the
 capacity to memorize train and generalizes worse on held-out data than the single
 5000→256 layer. The PCA measurement suggested more capacity would help;
 the held-out ablation showed it hurts. Measurement supersedes prediction, the
