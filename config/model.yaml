@@ -5,9 +5,9 @@ model:
 
   encoder:
     arch: "shallow"
-    tx_trunk_hidden: [256]   # 5000 -> 1024 -> 256
+    tx_trunk_hidden: [256]         # 5000 -> 256
     mt_trunk_hidden: [128]         # 225 -> 128
-              # concat(384) -> 256 -> mu/logvar
+    # concat(384) -> mu/logvar directly, no shared head
 
   decoder:
     type: linear                   

@@ -84,6 +84,47 @@ The asymmetry holds in the direction that matters, transcriptomics remains sever
 higher-dimensional, so the asymmetric encoder depth is unchanged. Only the headline multiple 
 shrinks from ~6× to ~4.5–5×.
 
+D011 · Encoder architecture — REVISED Week 6
+
+**Original decision:** asymmetric per-modality trunks — deep
+transcriptomics (5000→1024→256), shallow metabolomics (225→128), concat→shared
+head→μ/logvar. Justified by per-modality PCA: tx variance spread across ~285 PCs
+to 80%, mt concentrated in ~44, suggesting tx needed more compression capacity.
+
+**Revision:** the deep tx trunk is dropped. Locked encoder is
+now the shallow variant — single tx layer (5000→256), mt unchanged (225→128),
+concat(384)→μ/logvar directly, no shared head.
+
+**Why revised — held-out ablation, β=1, 3 seeds:**
+
+| arch | tx R² (42/43/44) | mt R² (42/43/44) | active |
+|------|------------------|------------------|--------|
+| asymmetric | 0.4169 / 0.4136 / 0.4172 | 0.5767 / 0.5773 / 0.5739 | 127–128 |
+| shallow    | 0.4563 / 0.4516 / 0.4543 | 0.6029 / 0.6050 / 0.6057 | 128 |
+
+Shallow beats asymmetric on both modalities at every seed. Distributions do not
+overlap; shallow's worst run (tx 0.4516) exceeds asymmetric's best (tx 0.4172);
+same on mt. Within-seed spread (~0.003) is ~10× smaller than the between-arch gap
+(~0.035), so the difference is architectural, not initialization noise.
+
+**Read:** the deep tx trunk overfits. 5000→1024→256 on 723 training rows has the
+capacity to memorize train and generalizes worse on held-out data than the single
+5000→256 layer. The PCA measurement suggested more capacity would help;
+the held-out ablation showed it hurts. Measurement supersedes prediction, the
+PCA rationale is retained above as the original reasoning, not deleted.
+
+**Robustness:** stability was established across 3 initialization seeds. K-fold
+cross-validation over train+val was considered as a partition-stability check and
+not run, the seed separation (~10× signal-to-noise, no distribution overlap) was
+sufficient to decide, and CV would not have changed a non-overlapping result.
+
+**Cascade:** none downstream. 128-dim output contract unchanged, linear decoder
+(D022) unchanged, embedding extraction unchanged. Downstream projects see the same artifact
+shape. Only the encoder that produces the latent changed.
+
+Cross-ref: D022 (decoder), D023 (baseline, asymmetric), D024 (β on shallow),
+experiments/sweep/.
+
 ## KEGG mapping scope note
 
 Manually inspected the first 20 metabolite column headers from
@@ -329,3 +370,48 @@ the reconstruction-vs-KL trade and whether higher β sharpens the latent without
 inducing collapse.
 
 Cross-ref: D011 (encoder), D022 (decoder), losses.py, experiments/baseline_beta1.log.
+
+
+## D024 · β = 1 selected — sweep on shallow encoder
+
+β swept {1,2,4,8}. First run on the asymmetric encoder (pre-ablation), then
+re-run on the shallow encoder after D011 was revised, so β and architecture are
+selected on the same model. Both sweeps gave the same shape and the same pick.
+
+Shallow encoder validation results:
+
+| β | active | tx R² | mt R² | KL median |
+|---|--------|-------|-------|-----------|
+| 1 | 128 | 0.4563 | 0.6029 | 0.113 |
+| 2 | 125 | 0.3795 | 0.5135 | 0.037 |
+| 4 | 105 | 0.2971 | 0.4081 | 0.018 |
+| 8 |  66 | 0.2010 | 0.2877 | 0.010 |
+
+Selection rule, in order: (1) β=8 loses 62/128 dims and its KL median sits at the
+0.01 threshold, excluded; (2) all others clear R²>0 both modalities; (3) lowest
+surviving β = 1. β=1 is also the healthiest run (most active dims, best
+reconstruction both modalities), so no runner-up tension; each higher β is
+strictly worse on every axis.
+
+Selected: β = 1.
+
+The trade-off is monotonic and matches the linear-decoder prediction (D022):
+higher β costs reconstruction and deactivates dims, no β sharpens the latent
+without cost. Identical shape on both encoders confirms β selection is a property
+of the KL term and linear decoder, not encoder depth.
+
+Metabolite R² is highest at β=1: 0.6029
+val. Config: config/training.yaml carries beta: 1.0, no change needed, the
+placeholder becomes committed.
+
+Note: the asymmetric β-sweep (D023 baseline was asymmetric) is retained in
+experiments/sweep/ as the pre-ablation record; selection is on the shallow table
+above.
+
+Held-out test (shallow β=1, computed once after selection, D007-clean): tx 0.4720,
+mt 0.6162, 128/128 active. Exceeds the asymmetric baseline (D023: tx 0.4350,
+mt 0.5951) on both modalities — the revised architecture improves the final
+reconstruction, not only validation.
+
+Cross-ref: D007 (val/test), D011 (encoder revision), D022 (decoder), D023
+(baseline), experiments/sweep/.
