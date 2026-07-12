@@ -1,9 +1,10 @@
+import os
 import yaml
 import torch
 import numpy as np
-from torch.utils.data import TensorDataset, DataLoader
 
-from src.data.pipeline import build_tensors
+from src.data.loader import make_loader
+from src.data.dataset import build_tensors
 from src.model.vae import VAE
 from src.model.losses import vae_loss
 
@@ -21,13 +22,6 @@ def load_model_config(path=CONFIG_MODEL_PATH):
     with open(path, "r") as f:
         cfg = yaml.safe_load(f)
     return cfg["model"]
-
-
-def make_loader(arr, batch_size, shuffle, device):
-    arr = arr.values  # DataFrame -> numpy (N, 5225), float64
-    t = torch.tensor(arr, dtype=torch.float32, device=device)
-    ds = TensorDataset(t)
-    return DataLoader(ds, batch_size=batch_size, shuffle=shuffle)
 
 
 def run_epoch(model, loader, tx_dim, beta, optimizer=None):
@@ -72,7 +66,7 @@ def run_epoch(model, loader, tx_dim, beta, optimizer=None):
     return total_avg, tx_avg, mt_avg, kl_avg
 
 
-def train(beta, arch="asymmetric", seed=None):
+def train(beta, arch="shallow", seed=None):
 
     cfg_training = load_config()
     cfg_model = load_model_config()
@@ -150,5 +144,32 @@ def train(beta, arch="asymmetric", seed=None):
     return model, history
 
 
+def save_checkpoint(model, path):
+    torch.save(model.state_dict(), path)
+
+
+def load_trained_model(ckpt_path, device="cpu"):
+    cfg = load_model_config()
+    enc = cfg["encoder"]
+
+    model = VAE(
+        tx_dim=cfg["tx_dim"],
+        mt_dim=cfg["mt_dim"],
+        latent_dim=cfg["latent_dim"],
+        arch=enc["arch"],
+        tx_hidden=enc["tx_trunk_hidden"][0],
+        mt_hidden=enc["mt_trunk_hidden"][0],
+    )
+
+    state = torch.load(ckpt_path, map_location=device)
+    model.load_state_dict(state)
+    model.to(device)
+    model.eval()
+    return model
+
+
 if __name__ == "__main__":
-    train(beta=1)
+    model, _ = train(beta=1, arch="shallow", seed=42)
+    os.makedirs("outputs/checkpoints", exist_ok=True)
+    save_checkpoint(model, "outputs/checkpoints/shallow_beta1_seed42.pt")
+    print("saved -> outputs/checkpoints/shallow_beta1_seed42.pt")
