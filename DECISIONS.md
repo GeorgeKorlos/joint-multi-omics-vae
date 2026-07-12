@@ -415,3 +415,12 @@ reconstruction, not only validation.
 
 Cross-ref: D007 (val/test), D011 (encoder revision), D022 (decoder), D023
 (baseline), experiments/sweep/.
+
+
+## D025 · DepMap Model.csv pulled for lineage coloring
+
+D019 declined lineage metadata because stratification didn't touch the claim.
+Reversed here for a different use: coloring the  latent UMAP, the standard
+"did the embedding recover biology" figure. SHA256-pinned in PROVENANCE, 25Q2
+(matches the transcriptomics release). Lineage never enters training, the
+artifact, or the identifier space, figure only. Claim untouched.

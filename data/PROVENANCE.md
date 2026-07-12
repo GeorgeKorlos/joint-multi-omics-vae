@@ -49,3 +49,16 @@
 * **link_hsa_hsa00670.tsv**: f93eeac12ebf62494b0ce88bb20ce9b37ee4e194d8e812fcf06beb276d414b67
 * **link_hsa_module.tsv**: a926e06d52b39698869ef0532709c28e4848d383074f1852ede6b106ab40d8c5
 * **list_module.tsv**: 61e96a77d64f6fa77d120e30ee7f0d633f523f100b8c81a041bda0ff6f6462d9
+
+
+## File 3 - Model.csv
+
+* **Release**: DepMap Public 25Q2
+* **Download date**: 2026-07-04
+* **Source**: https://depmap.org/portal/data_page/?tab=allData
+* **SHA256**: b096e03bfefdc2679211545ddbf1bb7878d69ffde07ae335af5b968a7883733c
+* **Join key**: ModelID (= DepMap ID, matches omics sample index)
+* **Columns used**: ModelID, OncotreeLineage
+* **Scope**: lineage coloring for latent UMAP only. Not in the HDF5
+  artifact, embeddings, or downstream project identifier space, visualization dependency,
+  output-contract-inert.
