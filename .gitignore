@@ -44,3 +44,5 @@ logs/*
 
 # scratch
 scratch/
+
+*:Zone.Identifier
