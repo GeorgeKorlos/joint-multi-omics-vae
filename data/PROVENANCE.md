@@ -72,4 +72,4 @@
 
 ## Metabolite KEGG Mapping
 * **Access date**: 2026-07-12
-* **Source**: manual name→KEGG compound ID map* **KEGG release**: 118.0* **metabolite_kegg_map.csv SHA256**: 99d15773f5688937f0e62c28f275589ba35c4491b041c1bdc86fe5e3a8678253* **Coverage**: 113/225 mapped; 112 dropped (unmappable LC-MS names — co-eluting * **Crossrefs**: PubChem/ChEBI deferred this cycle (see DECISIONS)
+* **Source**: manual name→KEGG compound ID map* **KEGG release**: 118.0* **metabolite_kegg_map.csv SHA256**: 99d15773f5688937f0e62c28f275589ba35c4491b041c1bdc86fe5e3a8678253* **Coverage**: 113/225 mapped; 112 dropped (unmappable LC-MS names — co-eluting * **Crossrefs**: PubChem/ChEBI deferred this cycle (see DECISIONS))

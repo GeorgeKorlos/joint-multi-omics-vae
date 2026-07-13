@@ -424,3 +424,22 @@ Reversed here for a different use: coloring the  latent UMAP, the standard
 "did the embedding recover biology" figure. SHA256-pinned in PROVENANCE, 25Q2
 (matches the transcriptomics release). Lineage never enters training, the
 artifact, or the identifier space, figure only. Claim untouched.
+
+
+## D026 — Dropped genes that mapped to more than one protein
+
+Mapping the 5000 genes to UniProt gave a clean one-to-one answer for almost all of them. 
+20 genes matched two (or more) different proteins with no fair way to pick one, so they 
+were dropped. 8 more had no reviewed human match and were also dropped. Result: 4972 of 
+5000 kept (99.4%). Dropped list: reports/dropped_genes.csv. 
+Frozen file: protein_accessions.csv, SHA256: 723a06b1570a8802a8885bb4077f0a456ced7bc83939b7c6df664c61a62ea5b2
+
+
+## D027 — Metabolite extra IDs deferred
+
+Metabolites are shipped with their KEGG ID only. The extra IDs (PubChem/ChEBI) aren't 
+built this round because no downstream project needs them yet. In the output file, 
+the extra-IDs slot is left present but empty, marked crossrefs_status: "deferred". 
+If a later project needs those IDs, they get added then. The metabolite embeddings 
+themselves are unchanged, they're needed for the Project's own KEGG test regardless
+. Source file: metabolite_kegg_map.csv, SHA256: 99d15773f5688937f0e62c28f275589ba35c4491b041c1bdc86fe5e3a8678253
