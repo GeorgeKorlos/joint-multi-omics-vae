@@ -101,16 +101,20 @@ def write_artifact(
     with h5py.File(out_path, "w") as f:
 
         assert protein_emb.shape == (4972, 128) and protein_emb.dtype == np.float32
-        f.create_dataset("protein_embeddings", data=protein_emb)
+        f.create_dataset("protein_embeddings", data=protein_emb, track_times=False)
 
         f.create_dataset("protein_ids", data=p_ids)
 
         assert metabolite_emb.shape == (113, 128) and metabolite_emb.dtype == np.float32
-        f.create_dataset("metabolite_embeddings", data=metabolite_emb)
+        f.create_dataset(
+            "metabolite_embeddings", data=metabolite_emb, track_times=False
+        )
 
-        f.create_dataset("metabolite_ids", data=m_ids)
+        f.create_dataset("metabolite_ids", data=m_ids, track_times=False)
 
-        f.create_dataset("metabolite_crossrefs", shape=(0,), dtype="S1")
+        f.create_dataset(
+            "metabolite_crossrefs", shape=(0,), dtype="S1", track_times=False
+        )
 
         protein_meta = f.create_group("protein_metadata")
         protein_meta.attrs["source_namespace"] = "HGNC"
