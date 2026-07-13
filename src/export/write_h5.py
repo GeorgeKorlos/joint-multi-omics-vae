@@ -1,3 +1,5 @@
+import os
+import h5py
 import numpy as np
 import pandas as pd
 
@@ -83,3 +85,56 @@ def build_metabolite_table(W_mt, mt_names_ordered, kegg_map_path):
     kegg_ids = kept["kegg_compound_id"].to_numpy()
 
     return W_mt_kept, kegg_ids, dropped_df
+
+
+def write_artifact(
+    out_path, protein_emb, protein_ids, metabolite_emb, metabolite_ids, meta
+):
+    protein_emb = protein_emb.astype(np.float32)
+    metabolite_emb = metabolite_emb.astype(np.float32)
+
+    p_ids = np.array(protein_ids, dtype="S")
+    m_ids = np.array(metabolite_ids, dtype="S")
+
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+
+    with h5py.File(out_path, "w") as f:
+
+        assert protein_emb.shape == (4972, 128) and protein_emb.dtype == np.float32
+        f.create_dataset("protein_embeddings", data=protein_emb)
+
+        f.create_dataset("protein_ids", data=p_ids)
+
+        assert metabolite_emb.shape == (113, 128) and metabolite_emb.dtype == np.float32
+        f.create_dataset("metabolite_embeddings", data=metabolite_emb)
+
+        f.create_dataset("metabolite_ids", data=m_ids)
+
+        f.create_dataset("metabolite_crossrefs", shape=(0,), dtype="S1")
+
+        protein_meta = f.create_group("protein_metadata")
+        protein_meta.attrs["source_namespace"] = "HGNC"
+        protein_meta.attrs["mapping_method"] = "UniProt ID mapping API"
+        protein_meta.attrs["isoform_policy"] = "canonical_only"
+        protein_meta.attrs["species"] = "Homo sapiens"
+        protein_meta.attrs["dropped_ids"] = meta["protein_dropped"]
+        protein_meta.attrs["coverage"] = meta["protein_coverage"]
+
+        metabolite_meta = f.create_group("metabolite_metadata")
+        metabolite_meta.attrs["source_namespace"] = "CCLE_metabolite_name"
+        metabolite_meta.attrs["mapping_version"] = "KEGG 118.0"
+        metabolite_meta.attrs["dropped_ids"] = meta["metabolite_dropped"]
+        metabolite_meta.attrs["coverage"] = meta["metabolite_coverage"]
+        metabolite_meta.attrs["crossrefs_status"] = "deferred"
+
+        global_meta = f.create_group("global_metadata")
+        global_meta.attrs["embedding_dim"] = 128
+        global_meta.attrs["normalization"] = "L2"
+        global_meta.attrs["model_name"] = meta["model_name"]
+        global_meta.attrs["model_version"] = meta["model_version"]
+        global_meta.attrs["model_seed"] = meta["seed"]
+        global_meta.attrs["model_beta"] = meta["beta"]
+        global_meta.attrs["model_arch"] = meta["arch"]
+        global_meta.attrs["KEGG_release"] = "118.0"
+        global_meta.attrs["creation_date"] = meta["creation_date"]
+        global_meta.attrs["git_commit"] = meta["git_commit"]
