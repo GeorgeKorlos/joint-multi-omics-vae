@@ -1,0 +1,29 @@
+symbol,entrez,reason
+CDKN2A,1029,"ambiguous: ['P42771', 'Q8N726']"
+RAB34,83871,"ambiguous: ['P0DI83', 'Q9BZG1']"
+TMSB15A,11013,"ambiguous: ['P0CG34', 'P0CG35']"
+ANXA8L1,728113,"ambiguous: ['P13928', 'Q5VT79']"
+GAGE12F,100008586,"ambiguous: ['O76087', 'P0CL80']"
+HSPA1A,3303,"ambiguous: ['P0DMV8', 'P0DMV9']"
+KRTAP2-3,730755,"ambiguous: ['P0C7H8', 'Q9BYR9']"
+RIPK4,54101,no reviewed human canonical match
+TMSB15B,286527,"ambiguous: ['P0CG34', 'P0CG35']"
+PRNP,5621,"ambiguous: ['F7VJQ1', 'P04156']"
+NPIPA8,101059953,"ambiguous: ['E9PJI5', 'P0DM63']"
+CALCA,796,"ambiguous: ['P01258', 'P06881']"
+CT45A10,102723631,"ambiguous: ['P0DMU8', 'P0DMU9']"
+SRRM3,222183,no reviewed human canonical match
+CT45A5,441521,"ambiguous: ['P0DMU7', 'P0DMU8', 'P0DMV0']"
+PLCXD2,257068,no reviewed human canonical match
+NRXN3,9369,"ambiguous: ['Q9HDB5', 'Q9Y4C0']"
+H2BC5,3017,"ambiguous: ['P58876', 'P62807']"
+OBSCN,84033,no reviewed human canonical match
+NRXN2,9379,"ambiguous: ['P58401', 'Q9P2S2']"
+HSPA1B,3304,"ambiguous: ['P0DMV8', 'P0DMV9']"
+C4B,721,"ambiguous: ['P0C0L4', 'P0C0L5']"
+NRXN1,9378,"ambiguous: ['P58400', 'Q9ULB1']"
+SLC22A31,146429,no reviewed human canonical match
+SIRPB1,10326,"ambiguous: ['O00241', 'Q5TFQ8']"
+CXXC4,80319,no reviewed human canonical match
+ANKRD18B,441459,no reviewed human canonical match
+FOXO6,100132074,no reviewed human canonical match

@@ -21,6 +21,7 @@ data/processed/*
 !data/processed/.gitkeep
 !data/processed/selected_genes.csv
 !data/processed/split.json
+!data/processed/protein_accessions.csv
 data/embeddings/*
 !data/embeddings/.gitkeep
 

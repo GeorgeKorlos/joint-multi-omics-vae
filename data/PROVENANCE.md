@@ -62,3 +62,14 @@
 * **Scope**: lineage coloring for latent UMAP only. Not in the HDF5
   artifact, embeddings, or downstream project identifier space, visualization dependency,
   output-contract-inert.
+## UniProt ID Mapping
+* **Access date**: 2026-07-12
+* **Source**: https://rest.uniprot.org
+* **Mapping**: GeneID (Entrez) -> UniProtKB-Swiss-Prot
+* **Release**: none — UniProt ID mapping is continuously updated; access date is the reproducibility anchor
+* **idmapping_results.tsv SHA256**: 2012f4e3ad3a1d2659d8c42810e77602d532380bf041085e31aff117ad38c5d9
+* **Coverage**: 4972 mapped / 8 no-match / 20 ambiguous, of 5000 genes
+
+## Metabolite KEGG Mapping
+* **Access date**: 2026-07-12
+* **Source**: manual name→KEGG compound ID map* **KEGG release**: 118.0* **metabolite_kegg_map.csv SHA256**: 99d15773f5688937f0e62c28f275589ba35c4491b041c1bdc86fe5e3a8678253* **Coverage**: 113/225 mapped; 112 dropped (unmappable LC-MS names — co-eluting * **Crossrefs**: PubChem/ChEBI deferred this cycle (see DECISIONS)
