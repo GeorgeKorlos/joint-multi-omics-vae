@@ -62,6 +62,7 @@
 * **Scope**: lineage coloring for latent UMAP only. Not in the HDF5
   artifact, embeddings, or downstream project identifier space, visualization dependency,
   output-contract-inert.
+
 ## UniProt ID Mapping
 * **Access date**: 2026-07-12
 * **Source**: https://rest.uniprot.org
@@ -73,3 +74,9 @@
 ## Metabolite KEGG Mapping
 * **Access date**: 2026-07-12
 * **Source**: manual name→KEGG compound ID map* **KEGG release**: 118.0* **metabolite_kegg_map.csv SHA256**: 99d15773f5688937f0e62c28f275589ba35c4491b041c1bdc86fe5e3a8678253* **Coverage**: 113/225 mapped; 112 dropped (unmappable LC-MS names — co-eluting * **Crossrefs**: PubChem/ChEBI deferred this cycle (see DECISIONS))
+
+## File 4 - omics_embeddings.h5
+- SHA256: 9811c2991f636c0b5c4c5089085e9b6ed94ef62dd7402ebda352d8f916d04464
+- Produced: 2026-07-13, commit ac60f9d, tag v1.0
+- Contents: 4972 protein embeddings (UniProt), 113 metabolite embeddings (KEGG compound ID), 128-dim, L2-normalized, float32
+- Pins: KEGG 118.0, UniProt 2026_02 (10-June-2026)

@@ -1,0 +1,113 @@
+metabolite_name,decoder_row
+DHAP/glyceraldehyde 3P,15
+F1P/F6P/G1P/G6P,17
+hexoses (HILIC neg),18
+fumarate/maleate/alpha-ketoisovalerate,19
+ribose-5-P/ribulose5-P,37
+succinate/methylmalonate,39
+UDP-galactose/UDP-glucose,43
+glycodeoxycholate/glycochenodeoxycholate,49
+taurodeoxycholate/taurochenodeoxycholate,50
+3-methyladipate/pimelate,52
+acetylglycine,84
+SDMA/ADMA,87
+hexoses (HILIC pos),105
+malonylcarnitine,122
+butyrylcarnitine/isobutyrylcarnitine,123
+valerylcarnitine/isovalerylcarnitine/2-methylbutyroylcarnitine,124
+hexanoylcarnitine,125
+heptanoylcarnitine,126
+lauroylcarnitine,127
+myristoylcarnitine,128
+stearoylcarnitine,130
+oleylcarnitine,131
+arachidonyl_carnitine,132
+C14:0 LPC,136
+C16:1 LPC,137
+C16:0 LPC,138
+C18:2 LPC,139
+C18:1 LPC,140
+C18:0 LPC,141
+C20:4 LPC,142
+C20:3 LPC,143
+C22:6 LPC,144
+C16:0 LPE,145
+C18:1 LPE,146
+C18:0 LPE,147
+C20:4 LPE,148
+C22:6 LPE,149
+C32:2 PC,150
+C32:1 PC,151
+C32:0 PC,152
+C34:4 PC,153
+C34:3 PC,154
+C34:2 PC,155
+C34:1 PC,156
+C36:4 PC-A,157
+C36:4 PC-B,158
+C36:3 PC,159
+C36:2 PC,160
+C36:1 PC,161
+C38:6 PC,162
+C38:5 PC,163
+C38:4 PC,164
+C38:2 PC,165
+C40:6 PC,166
+C14:0 SM,167
+C16:1 SM,168
+C16:0 SM,169
+C18:2 SM,170
+C18:1 SM,171
+C18:0 SM,172
+C22:1 SM,173
+C22:0 SM,174
+C24:1 SM,175
+C24:0 SM,176
+C34:2 DAG,177
+C34:1 DAG,178
+C36:2 DAG,179
+C36:1 DAG,180
+C14:0 CE,181
+C16:1 CE,182
+C16:0 CE,183
+C18:3 CE,184
+C18:2 CE,185
+C18:1 CE,186
+C18:0 CE,187
+C20:5 CE,188
+C20:4 CE,189
+C20:3 CE,190
+C22:6 CE,191
+C46:2 TAG,192
+C46:1 TAG,193
+C46:0 TAG,194
+C48:3 TAG,195
+C48:2 TAG,196
+C48:1 TAG,197
+C48:0 TAG,198
+C50:3 TAG,199
+C50:2 TAG,200
+C50:1 TAG,201
+C50:0 TAG,202
+C52:5 TAG,203
+C52:4 TAG,204
+C52:3 TAG,205
+C52:2 TAG,206
+C52:1 TAG,207
+C54:7 TAG,208
+C54:6 TAG,209
+C54:5 TAG,210
+C54:4 TAG,211
+C54:3 TAG,212
+C54:2 TAG,213
+C54:1 TAG,214
+C56:8 TAG,215
+C56:7 TAG,216
+C56:6 TAG,217
+C56:5 TAG,218
+C56:4 TAG,219
+C56:3 TAG,220
+C56:2 TAG,221
+C58:8 TAG,222
+C58:7 TAG,223
+C58:6 TAG,224
