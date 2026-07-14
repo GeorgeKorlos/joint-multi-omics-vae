@@ -123,6 +123,7 @@ def write_artifact(
         protein_meta.attrs["species"] = "Homo sapiens"
         protein_meta.attrs["dropped_ids"] = meta["protein_dropped"]
         protein_meta.attrs["coverage"] = meta["protein_coverage"]
+        protein_meta.attrs["uniprot_release"] = "2026_02"
 
         metabolite_meta = f.create_group("metabolite_metadata")
         metabolite_meta.attrs["source_namespace"] = "CCLE_metabolite_name"
