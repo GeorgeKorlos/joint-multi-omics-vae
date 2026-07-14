@@ -73,7 +73,6 @@ meta_dict = {
     "metabolite_dropped": len(dropped_metabolites_df),
     "metabolite_coverage": metabolite_coverage,
     "creation_date": creation_date,
-    "git_commit": git_commit,
 }
 
 dropped_metabolites_df.to_csv("reports/dropped_metabolites.csv", index=False)

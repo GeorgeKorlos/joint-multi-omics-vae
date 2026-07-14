@@ -142,4 +142,3 @@ def write_artifact(
         global_meta.attrs["model_arch"] = meta["arch"]
         global_meta.attrs["KEGG_release"] = "118.0"
         global_meta.attrs["creation_date"] = meta["creation_date"]
-        global_meta.attrs["git_commit"] = meta["git_commit"]
