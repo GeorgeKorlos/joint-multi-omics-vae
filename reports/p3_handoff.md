@@ -1,7 +1,7 @@
 # P2 → P3 Handoff
 
 **Artifact:** `data/embeddings/omics_embeddings.h5`
-**SHA256:** `e323c37ebdfce0740fd824d3be81744720be4bfd6c82e1b01018834f52145fe0`
+**SHA256:** `73660144905796451d48700e7c0ae85dd6654b0134de3716c904a7fcd0e8207e`
 **Produced by:** commit `<HEAD hash>`, tag `v1.0`, on 2026-07-13
 **Status:** frozen. This file does not change. Any new version gets a new hash and a new tag.
 
