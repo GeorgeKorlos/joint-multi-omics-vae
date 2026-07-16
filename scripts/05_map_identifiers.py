@@ -158,7 +158,8 @@ def main():
     )
     print(
         f"[coverage] {counts['mapped']}/5000 mapped | "
-        f"{counts['dropped_zero']} no-match | {counts['dropped_ambiguous']} ambiguous"
+        f"{counts['dropped_zero']} no-match | {counts['dropped_ambiguous']} ambiguous | "
+        f"{counts['collapsed']} collapsed"
     )
     print(f"[freeze] {OUT_CSV} SHA256 {get_sha256(OUT_CSV)}")
 

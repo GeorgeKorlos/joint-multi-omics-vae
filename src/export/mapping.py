@@ -61,12 +61,8 @@ def reconcile(
     accession_table = []
     dropped_log = []
 
-    counts = {
-        "mapped": 0,
-        "dropped_zero": 0,
-        "dropped_ambiguous": 0,
-    }
-
+    counts = {"mapped": 0, "dropped_zero": 0, "dropped_ambiguous": 0, "collapsed": 0}
+    seen_accessions = set()
     for gene in gene_rows:
         symbol = gene["symbol"]
         entrez = gene["entrez"]
@@ -82,14 +78,27 @@ def reconcile(
         ]
 
         if len(survivors) == 1:
-            accession_table.append(
-                {
-                    "symbol": symbol,
-                    "entrez": entrez,
-                    "uniprot_accession": survivors[0]["accession"],
-                }
-            )
-            counts["mapped"] += 1
+            acc = survivors[0]["accession"]
+
+            if acc in seen_accessions:
+                dropped_log.append(
+                    {
+                        "symbol": symbol,
+                        "entrez": entrez,
+                        "reason": f"collapsed: {acc} taken by higher-variance gene",
+                    }
+                )
+                counts["collapsed"] += 1
+            else:
+                seen_accessions.add(acc)
+                accession_table.append(
+                    {
+                        "symbol": symbol,
+                        "entrez": entrez,
+                        "uniprot_accession": acc,
+                    }
+                )
+                counts["mapped"] += 1
 
         elif len(survivors) == 0:
             dropped_log.append(

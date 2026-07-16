@@ -34,6 +34,7 @@
 * **Status**: PASS (above 850 floor)
 
 ## KEGG Module Database
+
 * **Release**: kegg             Release 118.0+/06-08, Jun 26
 * **Fetch date**: 2026-06-08
 * **Source**: https://rest.kegg.jp
@@ -69,7 +70,7 @@
 * **Mapping**: GeneID (Entrez) -> UniProtKB-Swiss-Prot
 * **Release**: none — UniProt ID mapping is continuously updated; access date is the reproducibility anchor
 * **idmapping_results.tsv SHA256**: 2012f4e3ad3a1d2659d8c42810e77602d532380bf041085e31aff117ad38c5d9
-* **Coverage**: 4972 mapped / 8 no-match / 20 ambiguous, of 5000 genes
+* **Coverage**: 4958 mapped / 8 no-match / 20 ambiguous / 14 collapsed (genes sharing one accession), of 5000 genes
 
 ## Metabolite KEGG Mapping
 * **Access date**: 2026-07-12
