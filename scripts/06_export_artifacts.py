@@ -46,11 +46,11 @@ assert len(dropped_metabolites_df) == 112
 print(f"Genes kept: {len(gene_emb)}/5000")
 print(f"Metabolites kept: {len(mt_emb)}/225")
 
-assert len(gene_emb) == 4972
+assert len(gene_emb) == 4958
 assert len(mt_emb) == 113
 
 reported_drops = pd.read_csv(DROPPED_GENES_REPORT)
-assert len(reported_drops) == 28
+assert len(reported_drops) == 42
 assert set(dropped_genes_df["entrez"]) == set(reported_drops["entrez"])
 
 

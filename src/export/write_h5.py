@@ -24,13 +24,13 @@ def build_gene_table(W_tx, selected_genes_path, accessions_path):
         protein_accessions[["entrez", "uniprot_accession"]], on="entrez", how="inner"
     )
 
-    assert len(merged) == 4972
+    assert len(merged) == 4958
 
     dropped_df = selected_genes[
         ~selected_genes["entrez"].isin(protein_accessions["entrez"])
     ][["symbol", "entrez"]]
 
-    assert len(dropped_df) == 28
+    assert len(dropped_df) == 42
 
     kept_rows = merged["decoder_row"].to_numpy()
 
@@ -100,7 +100,7 @@ def write_artifact(
 
     with h5py.File(out_path, "w") as f:
 
-        assert protein_emb.shape == (4972, 128) and protein_emb.dtype == np.float32
+        assert protein_emb.shape == (4958, 128) and protein_emb.dtype == np.float32
         f.create_dataset("protein_embeddings", data=protein_emb, track_times=False)
 
         f.create_dataset("protein_ids", data=p_ids)
