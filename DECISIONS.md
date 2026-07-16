@@ -443,3 +443,12 @@ the extra-IDs slot is left present but empty, marked crossrefs_status: "deferred
 If a later project needs those IDs, they get added then. The metabolite embeddings 
 themselves are unchanged, they're needed for the Project's own KEGG test regardless
 . Source file: metabolite_kegg_map.csv, SHA256: 99d15773f5688937f0e62c28f275589ba35c4491b041c1bdc86fe5e3a8678253
+
+## D028 — Protein count corrected to 4958 
+
+D026 recorded 4972 genes kept. 14 of those shared a UniProt accession with another
+gene, two genes pointing at one protein, which would have given downstream projects
+duplicate node keys. Those 14 are collapsed out. Result: 4958 of 5000 kept (99.2%), all accessions
+unique. Drops: 20 ambiguous + 8 no-match + 14 collapsed = 42.
+Frozen file: protein_accessions.csv, SHA256: 2af3da366908fe03ca680e146954b7d55ce897601bc62a68b211f583b22b7efb
+Artifact rebuilt as v1.1; v1.0 is superseded and should not be consumed.

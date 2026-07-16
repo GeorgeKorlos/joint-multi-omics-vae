@@ -16,6 +16,9 @@ __pycache__/
 
 # Data — tracked via PROVENANCE.md + SHA256
 data/raw/*
+!data/raw/kegg/
+data/raw/kegg/*
+!data/raw/kegg/*.tsv
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
